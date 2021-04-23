@@ -1,0 +1,36 @@
+logging:
+  level:
+    org.springframework.jdbc.datasource.init.ScriptUtils: debug
+    org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl: error
+server:
+  port: 8080
+spring:
+  jpa:
+    database: postgresql
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        generate-ddl: true
+        format_sql: true
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_SERVER}:${DB_PORT:5432}/${DB_DATABASE:rvpark}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+keycloak:
+  connectionsJpa:
+    url: jdbc:postgresql://${DB_SERVER}:${DB_PORT:5432}/${DB_DATABASE:rvpark}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver: org.postgresql.Driver
+    driverDialect: org.hibernate.dialect.PostgreSQL10Dialect
+  server:
+    contextPath: /auth
+    adminUser:
+      username: ${KC_ADMIN_USERNAME}
+      password: ${KC_ADMIN_PASSWORD}
+    realmImportFile: rvpark.json
